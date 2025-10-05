@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Commenting & Rating System</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the star rating input */
+        .rating {
+            display: inline-block;
+            direction: rtl;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            color: #ccc; /* Default star color (empty) */
+            cursor: pointer;
+            font-size: 2rem;
+            transition: color 0.2s;
+        }
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #fcd34d; /* Filled star color (amber-400) */
+        }
+        /* Style for the container to apply Inter font and default background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Container -->
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Public Feedback Wall</h1>
+        <p class="text-gray-600 mb-6">Share your thoughts and rate your experience below. Comments are visible to everyone in real-time.</p>
+
+        <!-- Current User Info & Loading State -->
+        <div id="auth-status" class="bg-indigo-100 border-l-4 border-indigo-500 text-indigo-700 p-4 rounded-lg mb-6 shadow-sm">
+            Authenticating...
+        </div>
+
+        <!-- Comment Submission Form -->
+        <div class="bg-white p-6 rounded-xl shadow-2xl mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Leave a Comment & Rating</h2>
+            <form id="comment-form" class="space-y-4">
+                
+                <!-- Rating Input -->
+                <div class="flex items-center space-x-2">
+                    <label class="text-lg font-medium text-gray-700">Your Rating:</label>
+                    <div class="rating">
+                        <input type="radio" id="star5" name="rating" value="5" required />
+                        <label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" />
+                        <label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" />
+                        <label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" />
+                        <label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" />
+                        <label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+
+                <!-- Comment Textarea -->
+                <div>
+                    <textarea id="comment-text" required rows="4" placeholder="Type your comment here..."
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-inner"></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" id="submit-button"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-150 ease-in-out shadow-md hover:shadow-lg disabled:opacity-50"
+                    disabled>
+                    Post Comment
+                </button>
+                <p id="error-message" class="text-red-600 text-sm hidden">Please select a rating and enter a comment.</p>
+                <p id="success-message" class="text-green-600 text-sm hidden">Comment posted successfully!</p>
+            </form>
+        </div>
+
+        <!-- Comments List Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Community Comments</h2>
+            <div id="comments-list" class="space-y-4">
+                <div id="loading-comments" class="text-gray-500 p-4 text-center">Loading comments...</div>
+                <!-- Comments will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        // Firestore and Auth instances
+        let app, db, auth, userId;
+        let isAuthReady = false;
+
+        // UI elements
+        const authStatusEl = document.getElementById('auth-status');
+        const submitButton = document.getElementById('submit-button');
+        const commentForm = document.getElementById('comment-form');
+        const commentsListEl = document.getElementById('comments-list');
+        const loadingCommentsEl = document.getElementById('loading-comments');
+        const errorMessageEl = document.getElementById('error-message');
+        const successMessageEl = document.getElementById('success-message');
+
+        // Set Firebase log level for debugging
+        setLogLevel('Debug');
+
+        // --- Initialization and Authentication ---
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            
+            // 1. Handle Authentication State
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    // User is signed in (either custom token or anonymously)
+                    userId = user.uid;
+                    authStatusEl.innerHTML = `✅ Signed in. Your user ID: <span class="font-mono bg-indigo-200 px-2 py-1 rounded text-sm break-all">${userId}</span>`;
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Post Comment";
+                    isAuthReady = true;
+                    // Once authenticated, start listening for comments
+                    loadComments();
+                } else {
+                    // Sign in with custom token if available, otherwise anonymously
+                    try {
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        console.error("Authentication failed:", error);
+                        authStatusEl.innerHTML = `❌ Failed to authenticate. Error: ${error.message}`;
+                        submitButton.textContent = "Auth Error";
+                        submitButton.disabled = true;
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error("Firebase Initialization Failed:", error);
+            authStatusEl.innerHTML = `❌ Firebase failed to initialize. Check config.`;
+            submitButton.disabled = true;
+        }
+
+
+        // --- Comment Saving Function ---
+        const saveComment = async (event) => {
+            event.preventDefault();
+            errorMessageEl.classList.add('hidden');
+            successMessageEl.classList.add('hidden');
+            
+            if (!isAuthReady || !userId) {
+                console.error("User not authenticated yet.");
+                errorMessageEl.textContent = "System not ready. Please wait for authentication to complete.";
+                errorMessageEl.classList.remove('hidden');
+                return;
+            }
+
+            const commentText = document.getElementById('comment-text').value.trim();
+            const ratingEl = document.querySelector('input[name="rating"]:checked');
+            
+            if (commentText === "" || !ratingEl) {
+                errorMessageEl.textContent = "Please select a rating and enter a comment.";
+                errorMessageEl.classList.remove('hidden');
+                return;
+            }
+            
+            const rating = parseInt(ratingEl.value, 10);
+
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = "Posting...";
+
+            try {
+                // Public data path: /artifacts/{appId}/public/data/comments
+                const commentsCollectionRef = collection(db, `artifacts/${appId}/public/data/comments`);
+
+                await addDoc(commentsCollectionRef, {
+                    comment: commentText,
+                    rating: rating,
+                    userId: userId,
+                    // Use serverTimestamp for accurate, server-generated time
+                    timestamp: serverTimestamp(), 
+                });
+
+                // Reset form and show success
+                commentForm.reset();
+                successMessageEl.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                errorMessageEl.textContent = `Failed to post comment. Error: ${error.message}`;
+                errorMessageEl.classList.remove('hidden');
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.textContent = "Post Comment";
+            }
+        };
+
+        // Attach event listener to the form
+        commentForm.addEventListener('submit', saveComment);
+
+        // --- Comment Loading (Real-time) Function ---
+
+        // Utility function to render star icons
+        const renderStarRating = (rating) => {
+            const maxRating = 5;
+            let stars = '';
+            for (let i = 1; i <= maxRating; i++) {
+                // Use a filled star if the rating is greater than or equal to the current star number
+                if (i <= rating) {
+                    stars += `<span class="text-amber-400">★</span>`;
+                } else {
+                    stars += `<span class="text-gray-300">★</span>`;
+                }
+            }
+            return stars;
+        };
+
+        const loadComments = () => {
+            if (!db || !isAuthReady) {
+                console.warn("Database or Auth not ready, cannot load comments.");
+                return;
+            }
+
+            // Public data path: /artifacts/{appId}/public/data/comments
+            const commentsCollectionRef = collection(db, `artifacts/${appId}/public/data/comments`);
+            
+            // Create a query for the collection
+            // NOTE: Sorting is typically done here but is avoided due to potential Firestore index issues.
+            // We will sort client-side by timestamp if needed.
+            const q = query(commentsCollectionRef);
+
+            // Listen for real-time updates
+            onSnapshot(q, (snapshot) => {
+                const comments = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    comments.push({ id: doc.id, ...data });
+                });
+
+                // Client-side sorting by timestamp (newest first). 
+                // We check for the existence of 'timestamp' as serverTimestamp() might be pending.
+                comments.sort((a, b) => (b.timestamp?.toMillis() || 0) - (a.timestamp?.toMillis() || 0));
+
+
+                // Clear previous list
+                commentsListEl.innerHTML = '';
+                
+                if (comments.length === 0) {
+                    commentsListEl.innerHTML = `<div class="text-gray-500 p-4 text-center border border-dashed border-gray-300 rounded-lg">No comments yet. Be the first to post!</div>`;
+                } else {
+                    comments.forEach(comment => {
+                        const date = comment.timestamp 
+                            ? new Date(comment.timestamp.toMillis()).toLocaleString()
+                            : "Pending..."; // Handle pending server timestamp
+
+                        const commentElement = document.createElement('div');
+                        commentElement.className = 'bg-white p-6 rounded-xl shadow-lg border border-gray-200 transition duration-300 hover:shadow-xl';
+                        commentElement.innerHTML = `
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-3 border-b pb-2">
+                                <div class="text-2xl font-bold mb-2 md:mb-0">${renderStarRating(comment.rating)}</div>
+                                <div class="text-sm text-gray-500 font-medium">
+                                    Posted: <span class="text-gray-700 font-semibold">${date}</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-800 mb-4">${comment.comment}</p>
+                            <div class="text-xs text-indigo-500 mt-2 pt-2 border-t border-dashed border-gray-100">
+                                User ID: <span class="font-mono font-bold break-all">${comment.userId}</span>
+                            </div>
+                        `;
+                        commentsListEl.appendChild(commentElement);
+                    });
+                }
+            }, (error) => {
+                console.error("Error fetching documents: ", error);
+                commentsListEl.innerHTML = `<div class="text-red-600 p-4 text-center">Failed to load comments: ${error.message}</div>`;
+            });
+        };
+    </script>
+</body>
+</html>
