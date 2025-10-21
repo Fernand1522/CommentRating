@@ -1,64 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Custom City Picker</title>
-    <link rel="stylesheet" href="styles.css"> </head>
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
 <body>
-
-
-<!-- Burada header  -->
-<div style="width:100%;text-align:center;">
-<img style="padding-top:9%;padding-bottom:0;width:70%;" src="img/kombiusta.svg">
-</div>
-<div style="text-align:center;"><img style="padding:9%;width:70%;" src="img/slogan.svg"></div>
-<!-- Burada header  -->
-
-<!-- Burada table -->
+<div class="center">
 <table>
+
+
+<tr>
+    <td colspan="2">
+        <div style="text-align:center;">
+            <a href="SAYFA.html">
+                <img style="padding:20px;object-fit:contain:contain;" src="img/kombiusta.svg">
+            </a>
+        </div>
+    </td>
+</tr>
+
 <tr >
-<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>Konum</p></td>
+    <td colspan="2">
+        <p style="margin-bottom:3vh;padding:1vh;font-size: 2vh;text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: bold;">Kombinize her daim en yakınız</p>
+    </td>
 </tr>
 
-
-
-
-<!-- experimental --><tr><td colspan="2">
-
-<button id="tus" class="tus-aktif">
-<span id="selected-city-display">Şehir</span>
-
-
-<img src="ref/arrow.svg">
-</button>
-
-
-</td><tr><!-- experimental -->
-
-<!-- experimental --><tr><td colspan="2">
-
-<button class="tus-pasif">
-<span id="selected-city-display">İlçe</span>
-
-
-<img src="ref/arrow.svg">
-</button>
-
-
-<td><tr><!-- experimental -->
+<tr ><td class="top-bar" colspan="2"><p>Konum</p></td></tr>
 
 <tr>
-<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
-</tr>
-
-<tr>
-<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>Kombinizin markası</p></td>
+    <td colspan="2">
+        <button id="city-picker-button" class="tus-aktif"><span id="selected-city-display">Şehir seçmek için tıkla</span></button>
+    </td>
 </tr>
 <tr>
-<td class="dgs-btn" colspan="2" style="width:70%;max-width:70%;min-width:5%;">
-<!-- Burada markalar -->
-    <div class="logo-grid">
+    <td colspan="2">
+        <button class="tus-pasif"><span id="selected-ILCE-display">İlçe seçmek için tıkla</span></button>
+    </td>
+</tr>
+    
+<tr><td class="dgs-btn-bos" colspan="2"><div style="min-height:5vh;"></div></td></tr>
+
+<tr><td class="top-bar" colspan="2"><p>Kombinizin markası</p></td></tr>
+
+<tr>
+<td class="dgs-btn" colspan="2">
+<div class="logo-grid">
         <div class="logo-item" data-brand="Airfel" title="Airfel">
             <img src="img/marka/airfel.png" alt="Airfel Logo">
         </div>
@@ -161,53 +152,42 @@
         <div class="logo-item" data-brand="Warmhaus" title="Warmhaus">
             <img src="img/marka/warmhaus.png" alt="Warmhaus Logo">
         </div>
-        
     </div>
-<!-- Burada markalar -->
 </td>
 </tr>
 
+<tr><td colspan="2"><div style="min-height:5vh;"></div></td></tr>
+
+<tr><td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>En yakın kombi servislerini bul</p></td></tr>
+
 <tr>
-<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
+    <td colspan="2">
+        <button id="list-services-button" class="tus-aktif">
+            <span id="selected-city-display">Kombi Servislerini Listele</span>
+        </button>
+    </td>
+</tr>
+
+<tr><td colspan="2"><div style="min-height:10vh;"></div></td></tr>
+
+<tr>
+    <td colspan="2">
+        <p class="footer-yazi">Her marka ve model için. Kombiye dair ne varsa, hizmet bizde...</p>
+    </td>
 </tr>
 
 <tr>
-<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>En yakın kombi servislerini bul</p></td>
+    <td colspan="2">
+        <p class="telif-yazi">&copy; Icmarpak Html System Alright Reserved 2025 @ Kullanım koşulları ve gizlilik bildirimi @ Tüm hakları saklı tutulmaktadır @ sg20042023</p>
+    </td>
 </tr>
 
-
-<tr><td colspan="2">
-<!-- experimental -->
-
-<button id="tus" class="tus-aktif">
-<span id="selected-city-display">Kombi Servislerini Listele</span>
-
-
-<img src="ref/arrow.svg">
-</button>
-</td></tr>
-
-<tr>
-<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
-</tr>
+<tr><td colspan="2"><div style="min-height:10vh;"></div></td></tr>
 
 </table>
-<!-- experimental -->
-
-<!-- Burada table -->
-
-
-
-<!-- Burada footer -->
-<div class="footer">
-<p class="footer-yazi">Her marka ve model için. Kombiye dair ne varsa, hizmet bizde...</p>
-<p class="telif-yazi">&copy; Icmarpak Html System Alright Reserved 2025 @ Kullanım koşulları ve gizlilik bildirimi @ Tüm hakları saklı tutulmaktadır @ sg20042023</p>
 </div>
-<br><br><br><br><br><br><br><br><br>
-<!-- Burada footer -->
-
-
-    <div id="city-lightbox" class="lightbox-overlay">
+<!-- Basla lightbox -->
+<div id="city-lightbox" class="lightbox-overlay">
         <div class="lightbox-content">
 
             <div class="lightbox-header">
@@ -220,8 +200,7 @@
             </div>
 
             <ul id="city-list" class="city-list">
-           <!-- The 81 Provinces of Turkey -->
-            <li sehir-deger="adana">Adana</li>
+           <li sehir-deger="adana">Adana</li>
             <li sehir-deger="adiyaman">Adıyaman</li>
             <li sehir-deger="afyonkarahisar">Afyonkarahisar</li>
             <li sehir-deger="agri">Ağrı</li>
@@ -238,7 +217,7 @@
             <li sehir-deger="bayburt">Bayburt</li>
             <li sehir-deger="bilecik">Bilecik</li>
             <li sehir-deger="bingol">Bingöl</li>
-            <li sehir-dehir="bitlis">Bitlis</li>
+            <li sehir-deger="bitlis">Bitlis</li>
             <li sehir-deger="bolu">Bolu</li>
             <li sehir-deger="burdur">Burdur</li>
             <li sehir-deger="bursa">Bursa</li>
@@ -305,33 +284,6 @@
                 </ul>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const logoItems = document.querySelectorAll('.logo-item');
-            
-            logoItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // 1. Remove 'selected' class from all other items
-                    logoItems.forEach(i => {
-                        if (i !== this) {
-                            i.classList.remove('selected');
-                        }
-                    });
-                    
-                    // 2. Toggle 'selected' class on the clicked item
-                    // This allows the user to deselect the current logo by clicking it again
-                    this.classList.toggle('selected');
-                    
-                    // OPTIONAL: Log the selected brand name to the console
-                    const selectedBrand = this.classList.contains('selected') 
-                        ? this.getAttribute('data-brand') 
-                        : 'None';
-                    console.log('Selected Brand:', selectedBrand);
-                });
-            });
-        });
-    </script>
 
     <script src="script.js"></script> </body>
 </html>

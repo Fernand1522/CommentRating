@@ -1,3 +1,16 @@
+/* 1. Global Reset for Box Model */
+* {
+    /* Ensures padding and border are included in the element's total width and height. 
+       This is critical for preventing layout overflows. */
+    box-sizing: border-box;
+}
+
+.center {
+width: 50%; /* Must define a width less than 100% */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* tus */
 .tus-aktif {
 background-repeat: repeat-x;
@@ -18,7 +31,7 @@ background-image:url(ref/top=70.png);
 text-decoration:none;
 text-align:left;
 }
-.tus-aktif img {position:absolute;right:5%;}
+.tus-aktif img {}
 .tus-aktif:hover {
 cursor:pointer;
 text-decoration:underline;
@@ -51,14 +64,14 @@ text-decoration:none;
 text-align:left;
 opacity:.5;
 }
-.tus-pasif img {position:absolute;right:5%;opacity:1;}
+.tus-pasif img {position:relative;opacity:1;transform: translateY(-50%);}
 /* Styling for the main button */
 #city-picker-button, #brand-picker-button {
     padding: auto auto;
     font-size: 16px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border:none;
+    border-radius:0;
     background-color: #f9f9f9;
 }
 
@@ -81,9 +94,8 @@ color:black;
 margin:5%;
 background-color:navy;
 border:none;
-padding:100%;
+padding: 5%; /* Use a reasonable padding */
 }
-
 
 /* Lightbox Overlay (the dark, full-screen background) */
 .lightbox-overlay {
@@ -190,6 +202,7 @@ padding:100%;
 	background-image:url(ref/top.png);
 	background-repeat: repeat-x;
 	    background-size:100% 100%;
+
 }
 .top-bar p {
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -198,12 +211,17 @@ padding:100%;
 	font-size:2vh;
 	margin:.6vh;
 	font-weight:bold;
+    line-height: 2.6vh;
 }
 
-table {
+table , td, tr{
     box-sizing: border-box;
     border-collapse: collapse;
     width: 100%;
+font-size: 0; 
+    line-height: 0;
+    padding: 0;
+border:none;
 }
 
 
@@ -241,13 +259,17 @@ div:nth-of-type(2) p { /* Targets the paragraph after the main image div */
     font-size:2vh;
     font-style:italic;
     font-weight:bold;
-    margin:2vh;
+    margin:4vh;
+    line-height: normal;
+    text-align: center;
 }
 .telif-yazi {
     font-family:Arial,Helvetica,Sans-Serif;
     font-size:1.5vh;
     color:rgb(153, 51, 0);
-    margin:1vh;
+    margin:5vh;
+    line-height: normal;
+    text-align: center;
 }
 
 /* brands */
@@ -331,6 +353,9 @@ div:nth-of-type(2) p { /* Targets the paragraph after the main image div */
                 grid-template-columns: repeat(3, 1fr); 
                 gap: 25px;
             }
+            table {
+                width: 100%;
+            }
         }
 
         /* Desktop/Large Screens (min-width 992px) */
@@ -339,12 +364,18 @@ div:nth-of-type(2) p { /* Targets the paragraph after the main image div */
                 grid-template-columns: repeat(5, 1fr); 
                 gap: 30px;
             }
+            table {
+                width: 100%;
+            }
         }
 
         /* Extra Large Screens (min-width 1200px) */
         @media (min-width: 1200px) {
             .logo-grid {
                 grid-template-columns: repeat(6, 1fr);
+            }
+            table {
+                width: 80%;
             }
         }
 
@@ -359,5 +390,11 @@ margin:5%;
 
 }
 
-body {margin:0;padding:0;}
+body {margin:0;padding:0;text-align:left;}
 h2 {font-family:sans-serif;}
+
+.dolgu {
+    min-width: 10%;
+    max-width: 10%;
+    width:10%;
+}
