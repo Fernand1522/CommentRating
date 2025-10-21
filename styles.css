@@ -6,9 +6,7 @@
 }
 
 .center {
-width: 50%; /* Must define a width less than 100% */
-  margin-left: auto;
-  margin-right: auto;
+
 }
 
 /* tus */
@@ -375,7 +373,7 @@ div:nth-of-type(2) p { /* Targets the paragraph after the main image div */
                 grid-template-columns: repeat(6, 1fr);
             }
             table {
-                width: 80%;
+                width: 100%;
             }
         }
 
