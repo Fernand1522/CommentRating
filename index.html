@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom City Picker</title>
+    <link rel="stylesheet" href="styles.css"> </head>
+<body>
+
+
+<!-- Burada header  -->
+<div style="width:100%;text-align:center;">
+<img style="padding-top:9%;padding-bottom:0;width:70%;" src="img/kombiusta.svg">
+</div>
+<div style="text-align:center;"><img style="padding:9%;width:70%;" src="img/slogan.svg"></div>
+<!-- Burada header  -->
+
+<!-- Burada table -->
+<table>
+<tr >
+<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>Konum</p></td>
+</tr>
+
+
+
+
+<!-- experimental --><tr><td colspan="2">
+
+<button id="tus" class="tus-aktif">
+<span id="selected-city-display">Şehir</span>
+
+
+<img src="ref/arrow.svg">
+</button>
+
+
+</td><tr><!-- experimental -->
+
+<!-- experimental --><tr><td colspan="2">
+
+<button class="tus-pasif">
+<span id="selected-city-display">İlçe</span>
+
+
+<img src="ref/arrow.svg">
+</button>
+
+
+<td><tr><!-- experimental -->
+
+<tr>
+<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
+</tr>
+
+<tr>
+<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>Kombinizin markası</p></td>
+</tr>
+<tr>
+<td class="dgs-btn" colspan="2" style="width:70%;max-width:70%;min-width:5%;">
+<!-- Burada markalar -->
+    <div class="logo-grid">
+        <div class="logo-item" data-brand="Airfel" title="Airfel">
+            <img src="img/marka/airfel.png" alt="Airfel Logo">
+        </div>
+        <div class="logo-item" data-brand="Alarko" title="Alarko">
+            <img src="img/marka/alarko.png" alt="Alarko Logo">
+        </div>
+        <div class="logo-item" data-brand="Altus" title="Altus">
+            <img src="img/marka/altus.png" alt="Altus Logo">
+        </div>
+        <div class="logo-item" data-brand="Arcelik" title="Arcelik">
+            <img src="img/marka/arcelik.png" alt="Arcelik Logo">
+        </div>
+        <div class="logo-item" data-brand="Ariston" title="Ariston">
+            <img src="img/marka/ariston.png" alt="Ariston Logo">
+        </div>
+        <div class="logo-item" data-brand="Asroyal" title="Asroyal">
+            <img src="img/marka/asroyal.png" alt="Asroyal Logo">
+        </div>
+        <div class="logo-item" data-brand="Auer" title="Auer">
+            <img src="img/marka/auer.png" alt="Auer Logo">
+        </div>
+        <div class="logo-item" data-brand="Baykan" title="Baykan">
+            <img src="img/marka/baykan.png" alt="Baykan Logo">
+        </div>
+        <div class="logo-item" data-brand="Baymak" title="Baymak">
+            <img src="img/marka/baymak.png" alt="Baymak Logo">
+        </div>
+        <div class="logo-item" data-brand="Beko" title="Beko">
+            <img src="img/marka/beko.png" alt="Beko Logo">
+        </div>
+        <div class="logo-item" data-brand="Beratta" title="Beratta">
+            <img src="img/marka/beratta.png" alt="Beratta Logo">
+        </div>
+        <div class="logo-item" data-brand="Berussa" title="Berussa">
+            <img src="img/marka/berussa.png" alt="Berussa Logo">
+        </div>
+        <div class="logo-item" data-brand="Bosch" title="Bosch">
+            <img src="img/marka/bosch.png" alt="Bosch Logo">
+        </div>
+        <div class="logo-item" data-brand="Buderus" title="Buderus">
+            <img src="img/marka/buderus.png" alt="Buderus Logo">
+        </div>
+        <div class="logo-item" data-brand="Chaffoteaux" title="Chaffoteaux">
+            <img src="img/marka/chaffoteaux.png" alt="Chaffoteaux Logo">
+        </div>
+        <div class="logo-item" data-brand="Demirdokum" title="Demirdokum">
+            <img src="img/marka/demirdokum.png" alt="Demirdokum Logo">
+        </div>
+        <div class="logo-item" data-brand="ECA" title="ECA">
+            <img src="img/marka/eca.png" alt="ECA Logo">
+        </div>
+        <div class="logo-item" data-brand="Emko" title="Emko">
+            <img src="img/marka/emko.png" alt="Emko Logo">
+        </div>
+        <div class="logo-item" data-brand="Falke" title="Falke">
+            <img src="img/marka/falke.png" alt="Falke Logo">
+        </div>
+        <div class="logo-item" data-brand="Ferrolli" title="Ferrolli">
+            <img src="img/marka/ferrolli.png" alt="Ferrolli Logo">
+        </div>
+        <div class="logo-item" data-brand="Goldherm" title="Goldherm">
+            <img src="img/marka/goldherm.png" alt="Goldherm Logo">
+        </div>
+        <div class="logo-item" data-brand="Immergas" title="Immergas">
+            <img src="img/marka/immergas.png" alt="Immergas Logo">
+        </div>
+        <div class="logo-item" data-brand="Kiturami" title="Kiturami">
+            <img src="img/marka/kiturami.png" alt="Kiturami Logo">
+        </div>
+        <div class="logo-item" data-brand="Maktek" title="Maktek">
+            <img src="img/marka/maktek.png" alt="Maktek Logo">
+        </div>
+        <div class="logo-item" data-brand="Protherm" title="Protherm">
+            <img src="img/marka/protherm.png" alt="Protherm Logo">
+        </div>
+        <div class="logo-item" data-brand="Sanica" title="Sanica">
+            <img src="img/marka/sanica.png" alt="Sanica Logo">
+        </div>
+        <div class="logo-item" data-brand="Susler" title="Susler">
+            <img src="img/marka/susler.png" alt="Susler Logo">
+        </div>
+        <div class="logo-item" data-brand="Termodinamik" title="Termodinamik">
+            <img src="img/marka/termodinamik.png" alt="Termodinamik Logo">
+        </div>
+        <div class="logo-item" data-brand="Termoteknik" title="Termoteknik">
+            <img src="img/marka/termoteknik.png" alt="Termoteknik Logo">
+        </div>
+        <div class="logo-item" data-brand="Vaillant" title="Vaillant">
+            <img src="img/marka/vaillant.png" alt="Vaillant Logo">
+        </div>
+        <div class="logo-item" data-brand="Vessen" title="Vessen">
+            <img src="img/marka/vessen.png" alt="Vessen Logo">
+        </div>
+        <div class="logo-item" data-brand="Vestel" title="Vestel">
+            <img src="img/marka/vestel.png" alt="Vestel Logo">
+        </div>
+        <div class="logo-item" data-brand="Viessman" title="Viessman">
+            <img src="img/marka/viessman.png" alt="Viessman Logo">
+        </div>
+        <div class="logo-item" data-brand="Warmhaus" title="Warmhaus">
+            <img src="img/marka/warmhaus.png" alt="Warmhaus Logo">
+        </div>
+        
+    </div>
+<!-- Burada markalar -->
+</td>
+</tr>
+
+<tr>
+<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
+</tr>
+
+<tr>
+<td class="top-bar" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p>En yakın kombi servislerini bul</p></td>
+</tr>
+
+
+<tr><td colspan="2">
+<!-- experimental -->
+
+<button id="tus" class="tus-aktif">
+<span id="selected-city-display">Kombi Servislerini Listele</span>
+
+
+<img src="ref/arrow.svg">
+</button>
+</td></tr>
+
+<tr>
+<td class="dgs-btn-bos" colspan="2" style="width:100%;max-width:100%;min-width:10%;"><p></p></td>
+</tr>
+
+</table>
+<!-- experimental -->
+
+<!-- Burada table -->
+
+
+
+<!-- Burada footer -->
+<div class="footer">
+<p class="footer-yazi">Her marka ve model için. Kombiye dair ne varsa, hizmet bizde...</p>
+<p class="telif-yazi">&copy; Icmarpak Html System Alright Reserved 2025 @ Kullanım koşulları ve gizlilik bildirimi @ Tüm hakları saklı tutulmaktadır @ sg20042023</p>
+</div>
+<br><br><br><br><br><br><br><br><br>
+<!-- Burada footer -->
+
+
+    <div id="city-lightbox" class="lightbox-overlay">
+        <div class="lightbox-content">
+
+            <div class="lightbox-header">
+                <h2>Şehir seçin</h2>
+                <button id="close-lightbox" class="close-btn">&times;</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="city-search" placeholder="Şehir Ara">
+            </div>
+
+            <ul id="city-list" class="city-list">
+           <!-- The 81 Provinces of Turkey -->
+            <li sehir-deger="adana">Adana</li>
+            <li sehir-deger="adiyaman">Adıyaman</li>
+            <li sehir-deger="afyonkarahisar">Afyonkarahisar</li>
+            <li sehir-deger="agri">Ağrı</li>
+            <li sehir-deger="aksaray">Aksaray</li>
+            <li sehir-deger="amasya">Amasya</li>
+            <li sehir-deger="ankara">Ankara</li>
+            <li sehir-deger="antalya">Antalya</li>
+            <li sehir-deger="ardahan">Ardahan</li>
+            <li sehir-deger="artvin">Artvin</li>
+            <li sehir-deger="aydin">Aydın</li>
+            <li sehir-deger="balikesir">Balıkesir</li>
+            <li sehir-deger="bartin">Bartın</li>
+            <li sehir-deger="batman">Batman</li>
+            <li sehir-deger="bayburt">Bayburt</li>
+            <li sehir-deger="bilecik">Bilecik</li>
+            <li sehir-deger="bingol">Bingöl</li>
+            <li sehir-dehir="bitlis">Bitlis</li>
+            <li sehir-deger="bolu">Bolu</li>
+            <li sehir-deger="burdur">Burdur</li>
+            <li sehir-deger="bursa">Bursa</li>
+            <li sehir-deger="canakkale">Çanakkale</li>
+            <li sehir-deger="cankiri">Çankırı</li>
+            <li sehir-deger="corum">Çorum</li>
+            <li sehir-deger="denizli">Denizli</li>
+            <li sehir-deger="diyarbakir">Diyarbakır</li>
+            <li sehir-deger="duzce">Düzce</li>
+            <li sehir-deger="edirne">Edirne</li>
+            <li sehir-deger="elazig">Elazığ</li>
+            <li sehir-deger="erzincan">Erzincan</li>
+            <li sehir-deger="erzurum">Erzurum</li>
+            <li sehir-deger="eskisehir">Eskişehir</li>
+            <li sehir-deger="gaziantep">Gaziantep</li>
+            <li sehir-deger="giresun">Giresun</li>
+            <li sehir-deger="gumushane">Gümüşhane</li>
+            <li sehir-deger="hakkari">Hakkari</li>
+            <li sehir-deger="hatay">Hatay</li>
+            <li sehir-deger="igdir">Iğdır</li>
+            <li sehir-deger="isparta">Isparta</li>
+            <li sehir-deger="istanbul">İstanbul</li>
+            <li sehir-deger="izmir">İzmir</li>
+            <li sehir-deger="kahramanmaras">Kahramanmaraş</li>
+            <li sehir-deger="karabuk">Karabük</li>
+            <li sehir-deger="karaman">Karaman</li>
+            <li sehir-deger="kars">Kars</li>
+            <li sehir-deger="kastamonu">Kastamonu</li>
+            <li sehir-deger="kayseri">Kayseri</li>
+            <li sehir-deger="kilis">Kilis</li>
+            <li sehir-deger="kirikkale">Kırıkkale</li>
+            <li sehir-deger="kirklareli">Kırklareli</li>
+            <li sehir-deger="kirsehir">Kırşehir</li>
+            <li sehir-deger="kocaeli">Kocaeli</li>
+            <li sehir-deger="konya">Konya</li>
+            <li sehir-deger="kutahya">Kütahya</li>
+            <li sehir-deger="malatya">Malatya</li>
+            <li sehir-deger="manisa">Manisa</li>
+            <li sehir-deger="mardin">Mardin</li>
+            <li sehir-deger="mersin">Mersin</li>
+            <li sehir-deger="mugla">Muğla</li>
+            <li sehir-deger="mus">Muş</li>
+            <li sehir-deger="nevsehir">Nevşehir</li>
+            <li sehir-deger="nigde">Niğde</li>
+            <li sehir-deger="ordu">Ordu</li>
+            <li sehir-deger="osmaniye">Osmaniye</li>
+            <li sehir-deger="rize">Rize</li>
+            <li sehir-deger="sakarya">Sakarya</li>
+            <li sehir-deger="samsun">Samsun</li>
+            <li sehir-deger="sanliurfa">Şanlıurfa</li>
+            <li sehir-deger="siirt">Siirt</li>
+            <li sehir-deger="sinop">Sinop</li>
+            <li sehir-deger="sivas">Sivas</li>
+            <li sehir-deger="sirnak">Şırnak</li>
+            <li sehir-deger="tekirdag">Tekirdağ</li>
+            <li sehir-deger="tokat">Tokat</li>
+            <li sehir-deger="trabzon">Trabzon</li>
+            <li sehir-deger="tunceli">Tunceli</li>
+            <li sehir-deger="usak">Uşak</li>
+            <li sehir-deger="van">Van</li>
+            <li sehir-deger="yalova">Yalova</li>
+            <li sehir-deger="yozgat">Yozgat</li>
+            <li sehir-deger="zonguldak">Zonguldak</li>
+                </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoItems = document.querySelectorAll('.logo-item');
+            
+            logoItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 1. Remove 'selected' class from all other items
+                    logoItems.forEach(i => {
+                        if (i !== this) {
+                            i.classList.remove('selected');
+                        }
+                    });
+                    
+                    // 2. Toggle 'selected' class on the clicked item
+                    // This allows the user to deselect the current logo by clicking it again
+                    this.classList.toggle('selected');
+                    
+                    // OPTIONAL: Log the selected brand name to the console
+                    const selectedBrand = this.classList.contains('selected') 
+                        ? this.getAttribute('data-brand') 
+                        : 'None';
+                    console.log('Selected Brand:', selectedBrand);
+                });
+            });
+        });
+    </script>
+
+    <script src="script.js"></script> </body>
+</html>
