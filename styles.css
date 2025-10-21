@@ -1,0 +1,363 @@
+/* tus */
+.tus-aktif {
+background-repeat: repeat-x;
+font-size:large;
+font-family:sans-serif;
+font-style:normal;
+font-weight:normal;
+color:black;	    
+background-size:100% 100%;
+padding:5%;
+border-radius:0;
+border:none;
+height:5%;
+min-height:5%;
+max-height:5%;
+width:100%;
+background-image:url(ref/top=70.png);
+text-decoration:none;
+text-align:left;
+}
+.tus-aktif img {position:absolute;right:5%;}
+.tus-aktif:hover {
+cursor:pointer;
+text-decoration:underline;
+}
+
+.tus-aktif:active {
+background-image:url(ref/top=50.png);
+color:white;
+
+}
+
+
+.tus-pasif {
+background-repeat: repeat-x;
+font-size:large;
+font-family:sans-serif;
+font-style:normal;
+font-weight:normal;
+color:gray;	    
+background-size:100% 100%;
+padding:5%;
+border-radius:0;
+border:none;
+height:5%;
+min-height:5%;
+max-height:5%;
+width:100%;
+background-image:url(ref/top=70.png);
+text-decoration:none;
+text-align:left;
+opacity:.5;
+}
+.tus-pasif img {position:absolute;right:5%;opacity:1;}
+/* Styling for the main button */
+#city-picker-button, #brand-picker-button {
+    padding: auto auto;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#ilce-picker-button {
+font-size:large;
+font-family:sans-serif;
+font-style:normal;
+font-weight:normal;
+color:black;
+margin:5%;
+background-color:transparent;
+border:none;
+}
+#ilce-picker-button:hover {
+font-size:large;
+font-family:sans-serif;
+font-style:normal;
+font-weight:normal;
+color:black;
+margin:5%;
+background-color:navy;
+border:none;
+padding:100%;
+}
+
+
+/* Lightbox Overlay (the dark, full-screen background) */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of everything */
+}
+
+/* Lightbox Content Box */
+.lightbox-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; /* Max width for the pop-up */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Header and Close Button */
+.lightbox-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* * FIX: The close button class is now scoped for specific lightboxes to maintain consistency.
+* The original was a generic '.close-btn' but in the HTML it's used for two lightboxes.
+* We ensure the style applies to the close buttons in both lightboxes.
+*/
+.lightbox-content .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+    line-height: 1; /* Ensures 'x' is vertically centered */
+}
+
+/* Search Bar */
+.search-container {
+    margin-bottom: 15px;
+}
+
+#city-search,#ilce-search,#brand-search {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+    font-family:sans-serif;
+}
+
+/* City List Styling */
+.city-list,.ilce-list,.brand-list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto; /* Scrollable list */
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.city-list li,.ilce-list li,.brand-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+    font-family:sans-serif;
+}
+
+.city-list li:hover,.ilce-list li:hover,.brand-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.city-list li:last-child,.ilce-list li:last-child,.brand-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- Table & Button Styling --- */
+.dgs-btn {
+	background-image:url(ref/top=70.png);
+	background-repeat: repeat-x;
+	    background-size:100% 100%;
+}
+.dgs-btn a {
+	color:gray;
+}
+.dgs-btn a:active {color:blue;}
+
+.dgs-btn-bos {}
+
+.top-bar {
+	background-image:url(ref/top.png);
+	background-repeat: repeat-x;
+	    background-size:100% 100%;
+}
+.top-bar p {
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	font-family:HelveticaNeue, sans-serif;
+	color:white;
+	font-size:2vh;
+	margin:.6vh;
+	font-weight:bold;
+}
+
+table {
+    box-sizing: border-box;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+
+/* * FIX: The text "Kombinize her daim en yakınız" is styled inline in the HTML. 
+* To make it responsive, we target the containing <div> and apply responsive font size 
+* and maximum width for better display on large screens.
+* The HTML structure is: 
+* <div> <p style="padding:5%;text-align:center;...font-size:xx-large;...">...</p> </div>
+* We can use a specific class or target the sibling div after the image div.
+* Since we cannot change the HTML, we will add a CSS rule that matches the inline style's intent
+* and make the text responsive using `vw` (viewport width) for size.
+*/
+div:nth-of-type(2) p { /* Targets the paragraph after the main image div */
+    /* Overriding inline styles for responsiveness */
+    padding: 5%;
+    text-align: center;
+    color: black;
+    font-family: sans-serif;
+    /* FIX: Responsive font size */
+    font-size: min(8vw, 28px); /* xx-large is too aggressive; this is better for mobile/desktop */
+    font-weight: bold;
+    margin: 0;
+    /* Optional: Ensure the text block doesn't stretch too wide on desktop */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* footer */
+.footer {text-align:center;}
+.footer img {display:inline;padding:18px;padding-top:32px;}
+.footer-yazi {
+    font-family:Arial,Helvetica,Sans-Serif;
+    font-size:2vh;
+    font-style:italic;
+    font-weight:bold;
+    margin:2vh;
+}
+.telif-yazi {
+    font-family:Arial,Helvetica,Sans-Serif;
+    font-size:1.5vh;
+    color:rgb(153, 51, 0);
+    margin:1vh;
+}
+
+/* brands */
+        /* ---------------------------------- */
+        /* LOGO GRID CONTAINER */
+        /* ---------------------------------- */
+        .logo-grid {
+            display: grid;
+            /* Default for small screens (Mobile First) - 2 columns */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* ---------------------------------- */
+        /* INDIVIDUAL LOGO ITEM */
+        /* ---------------------------------- */
+        .logo-item {
+            box-sizing: border-box; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Initial visual styling for the logo box */
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: 
+                transform 0.2s, 
+                background-color 0.3s, 
+                border-color 0.3s,
+                box-shadow 0.3s; /* Smooth transitions for hover and selection */
+            cursor: pointer; /* Indicates it's clickable */
+        }
+
+        /* Hover effect (for desktop/touch) */
+        .logo-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* *** NEW: SELECTED STATE STYLES *** */
+        .logo-item.selected {
+            background-color: #007bff; /* Blue background when selected */
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Blue glow/shadow */
+            transform: scale(1.02); /* Slight scale to emphasize selection */
+        }
+
+        /* Ensure the image remains visible and contrasted on the blue background */
+        .logo-item.selected img {
+             /* Optional: Apply a filter to make logos appear white/brighter on blue background 
+                -- use this only if your logos are dark and need white for contrast. */
+             /* filter: brightness(0) invert(1); */ 
+        }
+
+        /* ---------------------------------- */
+        /* LOGO IMAGE STYLES */
+        /* ---------------------------------- */
+        .logo-item img {
+            width: 167px; 
+            height: 64px;
+            object-fit: contain; 
+            max-width: 100%; 
+            max-height: 100%;
+            display: block;
+            transition: filter 0.3s; /* Smooth transition for image filter if used */
+        }
+
+        /* ---------------------------------- */
+        /* RESPONSIVENESS (MEDIA QUERIES) */
+        /* ---------------------------------- */
+
+        /* Tablet/Medium Screens (min-width 576px) */
+        @media (min-width: 576px) {
+            .logo-grid {
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 25px;
+            }
+        }
+
+        /* Desktop/Large Screens (min-width 992px) */
+        @media (min-width: 992px) {
+            .logo-grid {
+                grid-template-columns: repeat(5, 1fr); 
+                gap: 30px;
+            }
+        }
+
+        /* Extra Large Screens (min-width 1200px) */
+        @media (min-width: 1200px) {
+            .logo-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+/* Yazı biçim */
+.dgs-btn p {
+font-size:large;
+font-family:sans-serif;
+font-style:normal;
+font-weight:normal;
+color:black;
+margin:5%;
+
+}
+
+body {margin:0;padding:0;}
+h2 {font-family:sans-serif;}
